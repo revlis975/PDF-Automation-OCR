@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/static/node_modules/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/static/node_modules/font-awesome-animation/css/font-awesome-animation.min.css">
+    <!-- <link rel="stylesheet" href="/static/css/styles.css" /> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <style type="text/css">
+        input[type="file"] {
+            display: none;
+        }
+
+    /* canvas {
+    display: block;
+    vertical-align: bottom;
+    }
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 170%;
+      background: #00356b;
+    } */
+            body {
+        
+        /*background-image: url(../img/bluebg.jpg);*/
+        /*background-image: url(/static/img/bg3.png);*/
+        /*background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);*/
+        background: #00356b;
+        /*background-size: 400% 400%;*/
+        /*animation: gradient 5s ease infinite;*/
+        /*height: 100vh;*/
+        -ms-overflow-style: none;  
+        scrollbar-width: none; 
+        /*z-index: 0;*/
+    }
+
+    @keyframes gradient {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+    body::-webkit-scrollbar {
+        display: none;
+    }
+
+    .container {
+        background-color: #e5e5e5;
+        min-height: 800px;
+        border-color: lightgray;
+        /*animation: fadeIn 1.5s;*/
+        box-shadow: 0 20px 25px rgba(0, 0, 0, 1);
+        border-radius: 16px;
+        position: relative; 
+        opacity:0.9;
+    }
+
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            transform: translate3d(0,0,0)
+        }
+
+        to {
+            transform: translate3d(0,20px,0);
+            opacity: 1
+        }
+    }
+
+    .animatedFadeInUp {
+        opacity: 0
+    }
+
+    @-webkit-keyframes fadeInUp {
+        from {
+            transform: translate3d(0,20px,0)
+        }
+
+        to {
+            transform: translate3d(0,0,0);
+            opacity: 1
+        }
+    }
+
+    .animated {
+        animation-duration: 1.3s;
+        animation-fill-mode: both;
+        -webkit-animation-duration: 1.3s;
+        -webkit-animation-fill-mode: both
+    }
+
+    .fadeInUp {
+        opacity: 0;
+        animation-name: fadeInUp;
+        -webkit-animation-name: fadeInUp;
+    }
+
+    button {
+        margin: 30px;
+    }
+
+    .heading {
+        margin-top: 50px;
+        color: black;
+    }
+
+
+    .row-content {
+      margin: 0px auto;
+      padding: 30px 0px 30px 0px;
+    }
+
+    .logo {
+        max-width: 100%;
+        /*border: 2px #ff9999;*/
+        /*border-style: double;*/
+        padding: 30px;
+        /*border-radius: 8px;*/
+    }
+
+    .description {
+        font-size: 18px;
+        text-align: center;
+        margin-top: 10px;
+        font-style: italic;
+        font-family: sans-serif;
+    }
+
+    .hidden {
+        position: absolute;
+        overflow: hidden;
+        width: 0;
+        height: 0;
+        pointer-events: none;
+    }
+
+    .content {
+        width: 100%;
+        max-width: 800px;
+        text-align: center;
+        margin: 0 auto;
+        /*padding: 0 0 3em 0;*/
+    }
+
+    /*.box {
+        background-color: #dfc8ca;
+        padding: 6.25rem 1.25rem;
+    }
+
+    .box + .box {
+        margin-top: 2.5rem;
+    }*/
+
+
+    .js .inputfile {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+
+    .inputfile + label {
+        max-width: 80%;
+        font-size: 1.25rem;
+        /* 20px */
+        font-weight: 700;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        cursor: pointer;
+        display: inline-block;
+        overflow: hidden;
+        padding: 0.625rem 1.25rem;
+        /* 10px 20px */
+    }
+
+    .no-js .inputfile + label {
+        display: none;
+    }
+
+    .inputfile:focus + label,
+    .inputfile.has-focus + label {
+        outline: 1px dotted #000;
+        outline: -webkit-focus-ring-color auto 5px;
+    }
+
+
+
+    .inputfile-1 + label {
+        color: #00356b;
+        border: 2px solid currentColor;
+        border-radius: 8px;
+    }
+
+
+    .inputfile-1 + label:hover {
+        color: #00366b79;
+    }
+
+
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1; 
+      box-shadow: inset 0 0 5px grey; 
+      border-radius: 20px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #00356b; 
+      border-radius: 20px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #0096c2; 
+    }
+
+    .fa-input {
+      font-family: FontAwesome, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-style: normal;
+      
+    }
+
+
+    input[type=submit] {
+        /*border: 1px solid #ff0000;*/
+        border-radius: 8px;
+        background-color: #00356b;
+        padding: 10px 0px;
+        color: #e8e8e8;
+        /*font-weight: bold;*/
+        font-size: 25px;
+    }
+    input[type=submit]::before {
+        font-family: "Font Awesome 5 Brands"; content: "\f099";
+      }
+
+
+    input[type=submit]:hover {
+        opacity: 1;
+        background-color: #0096c2;
+        transition: 0.5s;
+        color: #ffffff;
+        transform: scale(1.1);
+        box-shadow:  10px 5px rgba(0,0,0,0.2);
+    }
+
+    .hide {
+        visibility: hidden;
+    }
+
+    .download {
+        margin-bottom: 40px;
+    }
+
+    #headsvg path {
+        /*stroke-dasharray: 1000;*/
+        stroke-dashoffset: 0;
+    }
+
+    #headsvg {display: block;}
+    #content-mobile {display: none;}
+
+    @media only screen and (max-width: 768px) {
+
+    #headsvg {
+        display: none;
+    }
+    #content-mobile {
+        display: block;
+    }
+    #previewBox {
+        display: none;
+    }
+    }
+    </style>
+
+
+    <title>PDF Parser</title>
+</head>
+
+<body>
+
+    <!-- FOR PARTICLE BACKGROUND -->
+
+    <!-- <div id="particles-js"></div>
+    <script src='https://cldup.com/S6Ptkwu_qA.js'></script>
+    <script type="text/javascript">
+    particlesJS("particles-js", {
+    "particles": {
+        "number": {
+            "value": 80,
+            "density": {
+                "enable": true,
+                "value_area": 300
+            }
+        },
+        "color": {
+            "value": "#ffffff"
+        },
+        "shape": {
+            "type": "circle",
+            "stroke": {
+                "width": 0,
+                "color": "#000000"
+            },
+            "polygon": {
+                "nb_sides": 5
+            },
+            "image": {
+                "src": "img/github.svg",
+                "width": 100,
+                "height": 100
+            }
+        },
+        "opacity": {
+            "value": 0.5,
+            "random": false,
+            "anim": {
+                "enable": false,
+                "speed": 1,
+                "opacity_min": 0.1,
+                "sync": false
+            }
+        },
+        "size": {
+            "value": 3,
+            "random": true,
+            "anim": {
+                "enable": false,
+                "speed": 40,
+                "size_min": 0.1,
+                "sync": false
+            }
+        },
+        "line_linked": {
+            "enable": true,
+            "distance": 150,
+            "color": "#ffffff",
+            "opacity": 0.4,
+            "width": 1
+        },
+        "move": {
+            "enable": true,
+            "speed": 3,
+            "direction": "none",
+            "random": false,
+            "straight": false,
+            "out_mode": "out",
+            "bounce": false,
+            "attract": {
+                "enable": false,
+                "rotateX": 600,
+                "rotateY": 1200
+            }
+        }
+    },
+    "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+            "onhover": {
+                "enable": true,
+                "mode": "grab"
+            },
+            "onclick": {
+                "enable": true,
+                "mode": "push"
+            },
+            "resize": true
+        },
+        "modes": {
+            "grab": {
+                "distance": 250,
+                "line_linked": {
+                    "opacity": 1
+                }
+            },
+            "bubble": {
+                "distance": 400,
+                "size": 40,
+                "duration": 2,
+                "opacity": 8,
+                "speed": 3
+            },
+            "repulse": {
+                "distance": 200,
+                "duration": 0.4
+            },
+            "push": {
+                "particles_nb": 4
+            },
+            "remove": {
+                "particles_nb": 2
+            }
+        }
+    },
+    "retina_detect": true
+    });
+    var count_particles, stats, update;
+    stats = new Stats;
+    stats.setMode(0);
+    stats.domElement.style.position = 'absolute';
+    stats.domElement.style.left = '0px';
+    stats.domElement.style.top = '0px';
+    document.body.appendChild(stats.domElement);
+    count_particles = document.querySelector('.js-count-particles');
+    update = function() {
+        stats.begin();
+        stats.end();
+        if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
+            count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
+        }
+        requestAnimationFrame(update);
+    };
+    requestAnimationFrame(update);;
+  
+    </script> -->
+
+    <!-- MAIN CONTAINER -->
+
+    <div class="container p-3 my-3 border">
+        <!-- <div class="row">
+            <div class="col-mid-6 m-auto">
+                <h1 class="text-center display-4 my-4">Upload Your PDF</h1>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-mid-6">
+                            <form action="/upload" method="post" enctype="multipart/form-data" class="m-auto">
+                                <div class="custom-file mb-3">
+                                    <input type="file" name="file" id="file" class="form-control">
+                                    <label for="file" class="form-label"></label>
+                                </div>
+                                <div class="d-grid gap-2">
+                                    <input type="submit" value="Submit" class="btn btn-primary btn-block text-center"
+                                        onclick="performOCR()">
+
+                                </div>
+
+                            </form>
+
+                            <div class="d-flex justify-content-center row row-content align-items-center">
+                                <div class="d-flex justify-content-center col-12 col-sm-4 align-self-center logo">
+                                    
+                                        <img src="/static/img/pdf1.png" class="img-fluid" height="90px" width="90px" style="margin-left: 10px;" alt="PDF Automation" />
+                                        <img src="/static/img/right-arrow2.png" class="img-fluid" height="70px" width="70px" style="margin-left: 10px; opacity: 0.8;" alt="PDF Automation" />
+                                        <img src="/static/img/analysis icon.png" class="img-fluid" height="90px" width="90px" style="margin-left: 10px;" alt="PDF Automation" />
+                                    
+                                </div>
+                            </div>
+
+                            <form action="/download" method="get" enctype="multipart/form-data" class="m-auto">
+                                <div class="d-grid gap-2">
+                                    <input type="submit" value="Download" class="btn btn-primary btn-block text-center mt-2"> 
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div> -->
+
+        <!-- WEBPAGE HEADING-->
+
+        <div class="d-flex row align-items-center justify-content-center animated animatedFadeInUp fadeInUp" style="padding-top: 70px; padding-bottom: 60px;" >
+            <div class="col-12 col-sm-8">
+                <svg id="headsvg" width="750" height="50" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke="#345b63" stroke-width="3" fill="none" d="M742.513,33.227 L742.513,40.519 L717.430,40.519 L717.430,1.202 L741.697,1.202 L741.697,8.493 L726.355,8.493 L726.355,16.660 L740.822,16.660 L740.822,23.894 L726.355,23.894 L726.355,33.227 L742.513,33.227 ZM709.323,29.436 C710.548,33.869 711.773,39.002 712.531,40.519 L703.431,40.519 C702.789,39.411 701.856,36.202 700.689,31.361 C699.639,26.460 697.948,25.119 694.331,25.060 L691.647,25.060 L691.647,40.519 L682.839,40.519 L682.839,1.727 C685.697,1.260 689.956,0.910 694.681,0.910 C700.514,0.910 704.598,1.785 707.398,4.002 C709.731,5.868 711.014,8.610 711.014,12.227 C711.014,17.244 707.456,20.685 704.073,21.910 L704.073,22.085 C706.814,23.194 708.331,25.819 709.323,29.436 ZM695.672,7.502 C693.514,7.502 692.289,7.677 691.647,7.793 L691.647,18.644 L695.147,18.644 C699.581,18.644 702.206,16.427 702.206,12.985 C702.206,9.368 699.756,7.560 695.672,7.502 ZM658.748,41.161 C648.831,41.161 642.998,35.677 642.998,23.135 L642.998,1.202 L651.923,1.202 L651.923,23.835 C651.923,30.602 654.490,34.044 659.040,34.044 C663.707,34.044 666.273,30.777 666.273,23.835 L666.273,1.202 L675.140,1.202 L675.140,23.252 C675.140,35.386 669.015,41.161 658.748,41.161 ZM627.599,40.519 L618.674,40.519 L618.674,8.668 L608.115,8.668 L608.115,1.202 L638.332,1.202 L638.332,8.668 L627.599,8.668 L627.599,40.519 ZM589.041,26.635 C587.874,26.635 586.824,26.577 586.008,26.460 L586.008,40.519 L577.199,40.519 L577.199,1.727 C579.941,1.260 583.791,0.910 589.216,0.910 C594.699,0.910 598.608,1.960 601.233,4.060 C603.741,6.043 605.433,9.310 605.433,13.160 C605.433,17.010 604.149,20.277 601.816,22.494 C598.783,25.352 594.291,26.635 589.041,26.635 ZM589.683,7.618 C587.874,7.618 586.649,7.793 586.008,7.968 L586.008,19.577 C586.766,19.752 587.699,19.810 588.983,19.810 C593.708,19.810 596.624,17.419 596.624,13.394 C596.624,9.777 594.116,7.618 589.683,7.618 ZM559.350,30.427 L548.091,30.427 L545.291,40.519 L536.075,40.519 L548.091,1.202 L559.758,1.202 L571.950,40.519 L562.383,40.519 L559.350,30.427 ZM555.617,15.435 C554.917,13.102 554.217,10.185 553.633,7.852 L553.517,7.852 C552.933,10.185 552.350,13.160 551.708,15.435 L549.375,23.777 L558.067,23.777 L555.617,15.435 ZM523.710,7.910 C516.651,7.910 511.168,12.169 511.168,20.919 C511.168,28.794 515.834,33.752 523.768,33.752 C526.451,33.752 529.426,33.169 531.176,32.469 L532.518,39.411 C530.885,40.227 527.210,41.102 522.426,41.102 C508.834,41.102 501.834,32.644 501.834,21.444 C501.834,8.027 511.401,0.560 523.301,0.560 C527.910,0.560 531.410,1.493 532.985,2.310 L531.176,9.368 C529.368,8.610 526.860,7.910 523.710,7.910 ZM474.010,30.427 L462.752,30.427 L459.952,40.519 L450.735,40.519 L462.752,1.202 L474.419,1.202 L486.611,40.519 L477.044,40.519 L474.010,30.427 ZM470.277,15.435 C469.577,13.102 468.877,10.185 468.294,7.852 L468.177,7.852 C467.594,10.185 467.010,13.160 466.369,15.435 L464.035,23.777 L472.727,23.777 L470.277,15.435 ZM442.336,40.519 L433.410,40.519 L433.410,8.668 L422.852,8.668 L422.852,1.202 L453.069,1.202 L453.069,8.668 L442.336,8.668 L442.336,40.519 ZM415.853,40.519 L412.819,30.427 L401.561,30.427 L398.761,40.519 L389.544,40.519 L401.561,1.202 L413.227,1.202 L425.419,40.519 L415.853,40.519 ZM409.086,15.435 C408.386,13.102 407.686,10.185 407.102,7.852 L406.986,7.852 C406.402,10.185 405.819,13.160 405.177,15.435 L402.844,23.777 L411.536,23.777 L409.086,15.435 ZM362.827,40.927 C358.219,40.927 354.952,40.636 352.735,40.344 L352.735,1.727 C356.002,1.202 360.260,0.910 364.752,0.910 C372.219,0.910 377.061,2.252 380.852,5.110 C384.936,8.143 387.502,12.985 387.502,19.927 C387.502,27.452 384.761,32.644 380.969,35.852 C376.827,39.294 370.527,40.927 362.827,40.927 ZM365.685,7.735 C363.702,7.735 362.419,7.910 361.660,8.085 L361.660,33.811 C362.419,33.986 363.644,33.986 364.752,33.986 C372.802,34.044 378.052,29.611 378.052,20.219 C378.111,12.052 373.327,7.735 365.685,7.735 ZM320.886,40.927 C313.711,40.927 308.519,39.119 304.903,35.619 C301.286,32.236 299.303,27.102 299.361,21.327 C299.419,8.260 308.928,0.793 321.820,0.793 C326.895,0.793 330.803,1.785 332.728,2.718 L330.862,9.835 C328.703,8.902 326.020,8.143 321.703,8.143 C314.295,8.143 308.694,12.344 308.694,20.860 C308.694,28.969 313.770,33.752 321.061,33.752 C323.103,33.752 324.736,33.519 325.436,33.169 L325.436,24.944 L319.370,24.944 L319.370,18.002 L334.012,18.002 L334.012,38.711 C331.270,39.644 326.078,40.927 320.886,40.927 ZM275.737,25.352 C273.404,21.152 270.837,16.077 268.912,11.469 L268.737,11.527 C268.970,16.719 269.087,22.260 269.087,28.677 L269.087,40.519 L260.920,40.519 L260.920,1.202 L271.304,1.202 L279.470,15.610 C281.804,19.752 284.137,24.652 285.887,29.086 L286.062,29.086 C285.479,23.894 285.304,18.585 285.304,12.694 L285.304,1.202 L293.471,1.202 L293.471,40.519 L284.137,40.519 L275.737,25.352 ZM244.296,1.202 L253.221,1.202 L253.221,40.519 L244.296,40.519 L244.296,1.202 ZM228.138,40.519 L219.271,40.519 L219.271,24.419 L206.846,1.202 L216.996,1.202 L221.021,10.652 C222.246,13.510 223.062,15.610 224.054,18.177 L224.171,18.177 C225.046,15.727 225.979,13.452 227.146,10.652 L231.113,1.202 L241.088,1.202 L228.138,24.127 L228.138,40.519 ZM188.355,17.477 L202.471,17.477 L202.471,24.710 L188.355,24.710 L188.355,40.519 L179.429,40.519 L179.429,1.202 L203.463,1.202 L203.463,8.493 L188.355,8.493 L188.355,17.477 ZM162.805,1.202 L171.730,1.202 L171.730,40.519 L162.805,40.519 L162.805,1.202 ZM132.998,1.202 L141.923,1.202 L141.923,33.052 L157.556,33.052 L157.556,40.519 L132.998,40.519 L132.998,1.202 ZM110.948,26.635 C109.782,26.635 108.732,26.577 107.915,26.460 L107.915,40.519 L99.106,40.519 L99.106,1.727 C101.848,1.260 105.698,0.910 111.123,0.910 C116.607,0.910 120.515,1.960 123.140,4.060 C125.649,6.043 127.340,9.310 127.340,13.160 C127.340,17.010 126.057,20.277 123.724,22.494 C120.690,25.352 116.198,26.635 110.948,26.635 ZM111.590,7.618 C109.782,7.618 108.557,7.793 107.915,7.968 L107.915,19.577 C108.673,19.752 109.607,19.810 110.890,19.810 C115.615,19.810 118.532,17.419 118.532,13.394 C118.532,9.777 116.023,7.618 111.590,7.618 ZM83.008,25.469 C82.833,20.744 82.658,15.027 82.658,9.310 L82.483,9.310 C81.257,14.327 79.624,19.927 78.107,24.535 L73.324,39.877 L66.382,39.877 L62.182,24.652 C60.899,20.044 59.557,14.444 58.624,9.310 L58.507,9.310 C58.274,14.619 58.099,20.685 57.807,25.585 L57.107,40.519 L48.882,40.519 L51.390,1.202 L63.232,1.202 L67.082,14.327 C68.307,18.877 69.532,23.777 70.407,28.385 L70.582,28.385 C71.691,23.835 73.032,18.644 74.316,14.269 L78.516,1.202 L90.124,1.202 L92.283,40.519 L83.591,40.519 L83.008,25.469 ZM33.133,1.202 L42.058,1.202 L42.058,40.519 L33.133,40.519 L33.133,1.202 ZM27.125,28.911 C27.125,35.502 22.050,41.102 11.258,41.102 C6.767,41.102 2.333,39.936 0.116,38.711 L1.925,31.361 C4.317,32.586 7.992,33.811 11.783,33.811 C15.867,33.811 18.025,32.119 18.025,29.552 C18.025,27.102 16.158,25.702 11.433,24.010 C4.900,21.735 0.641,18.119 0.641,12.402 C0.641,5.693 6.242,0.560 15.517,0.560 C19.950,0.560 23.217,1.493 25.550,2.543 L23.567,9.719 C21.992,8.960 19.192,7.852 15.342,7.852 C11.492,7.852 9.625,9.602 9.625,11.644 C9.625,14.152 11.842,15.260 16.917,17.185 C23.859,19.752 27.125,23.369 27.125,28.911 Z"/>
+                </svg>
+                <script src="/static/node_modules/animejs/lib/anime.min.js"></script>
+        <script>
+            anime({
+                targets: "#headsvg path",
+                strokeDashoffset: [anime.setDashoffset, 0],
+                easing: 'easeInQuad',
+                duration: 10000,
+                delay: function(el, i) { return i * 250 },
+                // direction: 'alternate',
+                // loop: true
+            });
+        </script>
+
+                <h1 style="font-size: 50px; padding: 30px;" id="content-mobile"><b>SIMPLIFYING DATA CAPTURE</b></h1>
+            </div>
+        </div>
+
+        
+
+
+        <!-- WEBSITE LOGO -->
+
+        <div class="d-flex justify-content-center row row-content align-items-center animated animatedFadeInUp fadeInUp">
+            <div class="d-flex justify-content-center col-12 col-sm-4 align-self-center logo">
+
+                <img src="/static/img/pdf1.png" class="img-fluid" height="90px" width="90px" style="margin-left: 10px;"
+                    alt="PDF Automation" />
+                <img src="/static/img/arrowGIF.gif" class="img-fluid" height="70px" width="70px"
+                    style="margin-left: 10px;" alt="PDF Automation" />
+                <img src="/static/img/analysis icon.png" class="img-fluid" height="90px" width="90px"
+                    style="margin-left: 10px;" alt="PDF Automation" />
+
+            </div>
+        </div>
+
+        <!-- WEBPAGE DESCRIPTION -->
+
+        <div class="d-flex row row-content justify-content-center align-items-center animated animatedFadeInUp fadeInUp">
+            <div class="col-12 col-sm-6">
+                <div class="description">
+                    <p style="color: black;">Upload your invoices or sales order reciepts,
+                        sit back and let our OCR engine extract the data for you</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CHOOSE FILE BUTTON -->
+
+        <div class="d-flex row row-content align-items-center mt-2 animated animatedFadeInUp fadeInUp">
+            <div class="col-12 col-sm-8 content">
+                <form action="/upload" method="POST" enctype="multipart/form-data">
+                    <input type="file" name="file-2[]" id="file-2" class="form-control inputfile inputfile-1"
+                        data-multiple-caption="{count} files selected" multiple accept="application/pdf"
+                        onchange="PreviewImage()" required>
+                        <label for="file-2"><i class="fa fa-file-pdf faa-file-pdf animated-hover mr-2 fa-input" aria-hidden="true">&#xf1c1</i>  <span>Choose File</span></label>
+                </form>
+                <!-- <div class="mt-3" style="clear: both; border: none;">
+                    <iframe id="viewer" frameborder="0" scrolling="no" width="200" height="300"></iframe>
+                </div> -->
+            </div>
+        </div>
+
+
+        <script type="text/javascript">
+            'use strict';
+
+            //TO ADD FILE NAME (AND COUNT) SELECTED DISPLAY
+
+                ;( function ( document, window, index )
+                {
+                  var inputs = document.querySelectorAll( '.inputfile' );
+                  Array.prototype.forEach.call( inputs, function( input )
+                  {
+                    var label  = input.nextElementSibling,
+                      labelVal = label.innerHTML;
+
+                    input.addEventListener( 'change', function( e )
+                    {
+                      var fileName = '';
+                      if( this.files && this.files.length > 1 )
+                        fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
+                      else
+                        fileName = e.target.value.split( '\\' ).pop();
+
+                      if( fileName )
+                        label.querySelector( 'span' ).innerHTML = fileName;
+                      else
+                        label.innerHTML = labelVal;
+                    });
+                    
+                    input.addEventListener( 'focus', function(){ input.classList.add( 'has-focus' ); });
+                    input.addEventListener( 'blur', function(){ input.classList.remove( 'has-focus' ); });
+                  });
+                }( document, window, 0 ));
+        </script>
+
+        <!-- PDF PREVIEW BOX -->
+
+        <div
+            class="d-flex row row-content align-items-center justify-content-center animated animatedFadeInUp fadeInUp">
+            <div class=" col-sm-6 mb-3" id="prev">
+                <div class="" id="previewBox" style="width: auto; overflow-x: auto; white-space: nowrap;">
+                </div>
+            </div>
+        </div>
+
+        <!-- JS FOR PREVIEW -->
+
+        <script type="text/javascript">
+            function PreviewImage() {
+                var n = document.getElementById("file-2").files.length;
+                if (n == 1) document.getElementById("prev").className = document.getElementById("prev").className.replace('col-sm-6', 'col-sm-3');
+                if (n == 2) document.getElementById("prev").className = document.getElementById("prev").className.replace('col-sm-6', 'col-sm-5');
+                while (n >= 0) {
+                    pdffile = document.getElementById("file-2").files[n - 1];
+                    var embed = document.createElement('embed');
+                    embed.setAttribute('width', '200');
+                    embed.setAttribute('height', '252');
+                    embed.setAttribute('style', 'border: none; margin: 10px 15px 0px 0px;');
+                    pdffile_url = URL.createObjectURL(pdffile);
+                    embed.src = pdffile_url;
+                    document.getElementById('previewBox').appendChild(embed);
+                    n--;
+                }
+
+            }
+        </script>
+
+        <!-- UPLOAD BUTTON -->
+
+        <div class="row row-content align-items-center justify-content-center animated animatedFadeInUp fadeInUp">
+            <!-- <button class="btn btn-danger button" type="submit" id="btn1" disabled> -->
+            <!-- <button class="col-12 col-sm-4 btn btn-danger button" type="submit" formaction="/upload" id="btn1" disabled>
+
+                <i class="loading-icon fa fa-spinner fa-spin mr-2 hide"></i>
+                <i class="fa fa-paper-plane mr-1 upload-icon" aria-hidden="true"></i>
+                <span class="btn-txt">UPLOAD</span>
+                
+            </button> -->
+            <div class="col-12 col-sm-4">
+                <!-- <div class="inputwrapper"> -->
+                <!-- <i class="fa fa-paper-plane mr-1 upload-icon" aria-hidden="true"></i> -->
+                <!-- <i class="fa fa-file-pdf mr-2 fa-input" aria-hidden="true">&#xf1c1</i>  <span></span> -->
+   
+                <input type="submit" value="&#xf093;   UPLOAD" id="submit" class="btn btn-block text-center fa-input" style="padding: 10px 5em;"
+                    onclick="performOCR()" disabled>
+                <!-- </div> -->
+
+            </div>
+
+
+        </div>
+
+        <div class="row row-content align-items-center justify-content-center progressblock">
+
+            <!-- <div > -->
+
+            <div class="col-12 col-sm-4 progress hide" style="height: 2px;" id="progress">
+                <div id="progressBar" class="progress-bar bg-danger" role="progressbar" aria-valuenow="0"
+                    aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+
+                </div>
+
+            </div>
+            <div class="progressmeter hide" style="color: black; font-size: 15px; margin-top: 5px; text-align: center;">
+                0%</div>
+
+            <!-- </div> -->
+        </div>
+
+        <div
+            class="row row-content align-items-center justify-content-center download hide animated animatedFadeInUp fadeInUp">
+
+            <div class="col-12 col-sm-4">
+
+                <form action="/download" method="get" enctype="multipart/form-data" class="m-auto">
+                    <div class="d-grid gap-2">
+                        <input type="submit" value="&#xf019;   DOWNLOAD" id="download"
+                            class="btn btn-primary btn-danger btn-block text-center mt-2 mb-3 fa-input" disabled>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <footer>
+        <p class="love" style="text-align: center; font-size: 13px;">Made with <i class="fa fa-heart" style="color: red; margin: 0px 3px;"></i> by Aryan, Gaurav, Kushagra, Mridul and Suyash</p>
+        </footer>
+
+    </div>
+
+    <script>
+
+        //to keep upload button disabled till file has been chosen
+        $(document).ready(
+            function () {
+                $('input:file').change(
+                    function () {
+                        if ($(this).val()) {
+                            $("input:submit").attr("disabled", false);
+                        }
+                    }
+                );
+            });
+
+        //to hide the loading icon till upload has been clicked and to disable the upload button after that
+        $(document).ready(function () {
+            $("#submit").on("click", function () {
+                $("#progress").removeClass("hide");
+                $(".progressmeter").removeClass("hide");
+                $("input:submit").attr("disabled", true);
+            });
+        });
+
+    </script>
+
+    <script>
+        function performOCR() {
+            var files = document.getElementById("file-2").files;
+            var formData = new FormData();
+            var endpoint = '/upload';
+            if (files.length == 1) {
+                formData.append('file', files[0])
+            }
+            else {
+                for (var i = 0; i < files.length; i++) {
+                    formData.append('image' + i.toString(), files[i])
+                }
+                endpoint = '/bulk_extract_text'
+            }
+
+
+            $.ajax({
+
+                xhr: function () {
+                    var xhr = new window.XMLHttpRequest();
+
+                    xhr.upload.addEventListener('progress', function (e) {
+
+                        if (e.lengthComputable) {
+
+                            console.log('Bytes Loaded: ' + e.loaded);
+                            console.log('Total Size: ' + e.total);
+                            console.log('Percentage Uploaded: ' + (e.loaded / e.total))
+
+                            var percent = Math.round((e.loaded / e.total) * 100);
+
+                            $('#progressBar').attr('aria-valuenow', percent).css('width', percent + '%');
+                            $('.progressmeter').text(percent + '%');
+                            if (percent == 100) {
+                                $('.progressblock').replaceWith($('.download'));
+                                $(".download").removeClass("hide");
+                                $("#download").attr('disabled', false);
+                            }
+
+                        }
+
+                    });
+
+                    return xhr;
+                },
+
+
+                type: 'POST',
+                url: endpoint,
+                data: formData,
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function (data) {
+                    if (endpoint == '/extract_text') {
+                        swal("Converted Text", data.text);
+                    }
+                    else {
+                        swal("Patience is Key", "All your Files are done. Have a nice day!");
+                    }
+                    swal("Converted Text", data.text);
+                }
+            });
+        }
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ"
+        crossorigin="anonymous"></script>
+        
+</body>
+
+</html>

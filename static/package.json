@@ -1,0 +1,27 @@
+{
+  "name": "git-test",
+  "version": "1.0.0",
+  "description": "This is a test directory to learn Git and Node",
+  "main": "index.html",
+  "scripts": {
+    "start": "npm run lite",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lite": "lite-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://revlis975@bitbucket.org/revlis975/git-test.git"
+  },
+  "author": "Aryan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://bitbucket.org/revlis975/git-test/issues"
+  },
+  "homepage": "https://bitbucket.org/revlis975/git-test#readme",
+  "devDependencies": {
+    "lite-server": "^2.6.1"
+  },
+  "dependencies": {
+    "bootstrap-social": "^5.1.1"
+  }
+}
